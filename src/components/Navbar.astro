@@ -8,11 +8,18 @@ const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data
 const path = Astro.url.pathname.replace(/\/$/, "");
 const isActive = (href: string) => path === href.replace(/\/$/, "");
 const inServices = services.some((s) => isActive(`/${s.id}`));
+// Auf der Startseite steht das Logo im Hero; in der Navbar erscheint es erst nach dem Scrollen
+const isHome = path === "";
 ---
 
 <header class="border-line/70 fixed top-0 z-50 w-full border-b bg-white/90 backdrop-blur">
   <nav class="mx-auto flex h-20 max-w-6xl items-center justify-between px-6" aria-label="Hauptmenü">
-    <a href="/" class="shrink-0" aria-label="Socius Beistandschaften – Startseite">
+    <a
+      href="/"
+      id="navLogo"
+      class:list={["shrink-0 transition-opacity duration-300", isHome && "pointer-events-none opacity-0"]}
+      aria-label="Socius Beistandschaften – Startseite"
+    >
       <Image src={logo} alt="Socius Beistandschaften" loading="eager" width={360} class="h-8 w-auto sm:h-9" />
     </a>
 
@@ -74,3 +81,17 @@ const inServices = services.some((s) => isActive(`/${s.id}`));
     </div>
   </div>
 </header>
+
+<script>
+  const navLogo = document.getElementById("navLogo");
+  const hero = document.getElementById("hero");
+  if (navLogo && hero) {
+    new IntersectionObserver(
+      ([entry]) => {
+        navLogo.classList.toggle("opacity-0", entry.isIntersecting);
+        navLogo.classList.toggle("pointer-events-none", entry.isIntersecting);
+      },
+      { rootMargin: "-80px 0px 0px 0px", threshold: 0.25 },
+    ).observe(hero);
+  }
+</script>

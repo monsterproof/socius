@@ -1,7 +1,8 @@
 ---
-import { ArrowRight } from "@lucide/astro";
+import { ArrowRight, ChevronDown } from "@lucide/astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import logo from "../assets/logo.png";
 import ContactCta from "../components/ContactCta.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Layout from "../layouts/Layout.astro";
@@ -13,20 +14,26 @@ const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data
 
 <Layout>
   <!-- Zitat -->
-  <section class="bg-paper border-line relative overflow-hidden border-b">
-    <div class="relative mx-auto max-w-6xl px-6 py-24 md:py-16">
-      <figure>
-        <blockquote class="text-2xl leading-snug font-light tracking-tight text-balance  md:leading-snug">«{quote.text}»</blockquote>
+  <section id="hero" class="bg-paper border-line relative flex min-h-[calc(100svh-5rem)] items-center border-b">
+    <div class="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:gap-20">
+      <h1>
+        <Image src={logo} alt="Socius Beistandschaften" loading="eager" width={900} class="w-full max-w-xs md:max-w-sm" />
+      </h1>
+      <figure class="md:border-line md:border-l md:pl-20">
+        <blockquote class="text-2xl leading-snug font-light tracking-tight text-balance md:leading-snug">«{quote.text}»</blockquote>
         <figcaption class="text-muted mt-8 flex items-center gap-4 text-sm tracking-[0.2em] uppercase">
           <span class="bg-brand h-px w-10"></span>
           {quote.author}
         </figcaption>
       </figure>
     </div>
+    <a href="#dienstleistungen" class="text-muted hover:text-brand absolute bottom-8 left-1/2 -translate-x-1/2 p-2" aria-label="Weiter nach unten">
+      <ChevronDown class="size-6 animate-bounce" aria-hidden="true" />
+    </a>
   </section>
 
   <!-- Dienstleistungen -->
-  <section class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+  <section id="dienstleistungen" class="mx-auto max-w-6xl scroll-mt-20 px-6 py-20 md:py-28">
     <div class="mb-12 max-w-2xl">
       <p class="text-brand mb-4 text-xs font-medium tracking-[0.25em] uppercase">Dienstleistungen</p>
       <h2 class="text-3xl font-light tracking-tight md:text-4xl">Fachliche Begleitung im Kindes- und Erwachsenenschutz</h2>
