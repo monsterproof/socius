@@ -16,11 +16,11 @@ const { href, title, teaser, index } = Astro.props;
 >
   <div class="mb-10 flex items-start justify-between">
     <span class="text-muted text-sm tabular-nums">{String(index).padStart(2, "0")}</span>
-    <ArrowUpRight
+<!--     <ArrowUpRight
       class="text-muted group-hover:text-brand size-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       aria-hidden="true"
     />
-  </div>
+ -->  </div>
   <h3 class="text-lg font-medium tracking-tight">{title}</h3>
   <p class="text-muted mt-2 text-[0.95rem] leading-relaxed">{teaser}</p>
 </a>
