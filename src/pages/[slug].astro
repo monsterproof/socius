@@ -1,0 +1,48 @@
+---
+import { getCollection, render } from "astro:content";
+import ContactCta from "../components/ContactCta.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data.order - b.data.order);
+  return services.map((service) => ({ params: { slug: service.id }, props: { service, services } }));
+}
+
+const { service, services } = Astro.props;
+const { Content } = await render(service);
+---
+
+<Layout title={service.data.title} description={service.data.teaser}>
+  <PageHeader eyebrow="Dienstleistungen" title={service.data.title} lead={service.data.teaser} />
+  <div class="mx-auto grid max-w-6xl gap-16 px-6 py-16 md:py-24 lg:grid-cols-[minmax(0,48rem)_1fr]">
+    <div>
+      <article class="prose-socius">
+        <Content />
+      </article>
+      <div class="mt-20">
+        <ContactCta />
+      </div>
+    </div>
+    <aside class="hidden lg:block">
+      <nav class="sticky top-28" aria-label="Dienstleistungen">
+        <p class="text-muted mb-3 px-4 text-xs font-medium tracking-[0.25em] uppercase">Dienstleistungen</p>
+        <ul class="border-line border-l">
+          {services.map((s) => (
+            <li>
+              <a
+                href={`/${s.id}/`}
+                class:list={[
+                  "-ml-px block border-l-2 px-4 py-2 text-sm transition-colors",
+                  s.id === service.id ? "border-brand text-brand font-medium" : "text-muted hover:text-ink border-transparent",
+                ]}
+              >
+                {s.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</Layout>

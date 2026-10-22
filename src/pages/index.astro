@@ -1,16 +1,65 @@
 ---
+import { ArrowRight } from "@lucide/astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import ContactCta from "../components/ContactCta.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { quote } from "../data/site";
+import { team } from "../data/team";
+
+const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data.order - b.data.order);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <!-- Zitat -->
+  <section class="bg-paper border-line relative overflow-hidden border-b">
+    <div class="relative mx-auto max-w-6xl px-6 py-24 md:py-36">
+      <figure class="max-w-4xl">
+        <blockquote class="text-2xl leading-snug font-light tracking-tight text-balance md:text-4xl md:leading-snug">«{quote.text}»</blockquote>
+        <figcaption class="text-muted mt-8 flex items-center gap-4 text-sm tracking-[0.2em] uppercase">
+          <span class="bg-brand h-px w-10"></span>
+          {quote.author}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Dienstleistungen -->
+  <section class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-brand mb-4 text-xs font-medium tracking-[0.25em] uppercase">Dienstleistungen</p>
+      <h2 class="text-3xl font-light tracking-tight md:text-4xl">Fachliche Begleitung im Kindes- und Erwachsenenschutz</h2>
+    </div>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((s, i) => (
+        <ServiceCard href={`/${s.id}/`} title={s.data.title} teaser={s.data.teaser} index={i + 1} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="bg-paper border-line border-y">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-28">
+      <div>
+        <p class="text-brand mb-4 text-xs font-medium tracking-[0.25em] uppercase">Über uns</p>
+        <h2 class="text-3xl font-light tracking-tight md:text-4xl">Unser Team</h2>
+        <p class="text-muted mt-5 max-w-md text-lg">
+          Juristisches Fachwissen und Soziale Arbeit – persönlich, vertraulich und mit langjähriger Praxiserfahrung.
+        </p>
+        <a href="/ueber-uns/" class="text-brand mt-8 inline-flex items-center gap-2 font-medium hover:gap-3 transition-all">
+          Team kennenlernen <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+      <div class="flex -space-x-6">
+        {team.map((m) => (
+          <Image src={m.image} alt={m.name} width={240} class="border-paper aspect-[3/4] w-1/5 rounded-box border-4 object-cover" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <ContactCta text="Kontaktieren Sie uns für eine unverbindliche und kostenlose Ersteinschätzung." />
+  </div>
+</Layout>

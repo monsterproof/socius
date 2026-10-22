@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import logo from "../assets/logo.png";
+import { site } from "../data/site";
+
+const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<footer class="bg-paper border-line border-t">
+  <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 text-sm md:grid-cols-[1fr_1fr_auto]">
+    <div class="space-y-4">
+      <Image src={logo} alt="Socius Beistandschaften" width={360} class="h-8 w-auto" />
+      <address class="text-muted leading-relaxed not-italic">
+        {site.name}
+        <br />
+        {site.street}
+        <br />
+        {site.city}
+      </address>
+    </div>
+    <div>
+      <p class="mb-3 font-medium">Dienstleistungen</p>
+      <ul class="text-muted space-y-2">
+        {services.map((s) => (
+          <li>
+            <a href={`/${s.id}/`} class="hover:text-brand">
+              {s.data.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="mb-3 font-medium">Kontakt</p>
+      <ul class="text-muted space-y-2">
+        <li>
+          <a href={site.phoneHref} class="hover:text-brand">
+            {site.phone}
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${site.email}`} class="hover:text-brand break-words">
+            {site.email}
+          </a>
+        </li>
+        <li>
+          <a href="/ueber-uns/" class="hover:text-brand">
+            Über uns
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-line border-t">
+    <div class="text-muted mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs sm:flex-row sm:justify-between">
+      <span>
+        © {new Date().getFullYear()} {site.name}
+      </span>
+      <span class="flex gap-5">
+        <a href="/impressum/" class="hover:text-brand">
+          Impressum
+        </a>
+        <a href="/datenschutz/" class="hover:text-brand">
+          Datenschutz
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>

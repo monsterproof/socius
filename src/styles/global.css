@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "@fontsource-variable/montserrat";
+
+@theme {
+  --font-sans: "Montserrat Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Eckenradius für alle Karten, Boxen und Buttons (0 = eckig) */
+  --radius-box: 0;
+
+  --color-ink: hsl(200 12% 12%);
+  --color-muted: hsl(200 6% 40%);
+  --color-line: hsl(35 15% 86%);
+  --color-paper: hsl(40 30% 97%);
+  --color-sand: hsl(38 28% 92%);
+
+  --color-brand: hsl(190 35% 28%);
+  --color-brand-dark: hsl(190 35% 18%);
+  --color-brand-light: hsl(190 30% 90%);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-ink bg-white font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-brand-light;
+  }
+}
+
+/* Fliesstext aus Markdown-Inhalten */
+.prose-socius {
+  @apply text-ink/85 text-[1.05rem] leading-relaxed;
+}
+.prose-socius > * + * {
+  @apply mt-5;
+}
+.prose-socius h2 {
+  @apply text-ink mt-14 mb-2 text-2xl font-medium tracking-tight first:mt-0;
+}
+.prose-socius h3 {
+  @apply text-ink mt-10 mb-1 text-lg font-semibold;
+}
+.prose-socius > ul {
+  @apply space-y-3 pl-0;
+}
+.prose-socius > ul > li {
+  @apply border-line bg-paper rounded-box border px-5 py-4;
+}
+.prose-socius strong {
+  @apply text-ink font-semibold;
+}
+.prose-socius a {
+  @apply text-brand decoration-brand/30 hover:decoration-brand underline underline-offset-4;
+}
+.prose-socius li ul {
+  @apply text-ink/75 marker:text-brand/50 mt-2 list-disc space-y-1 pl-5;
+}

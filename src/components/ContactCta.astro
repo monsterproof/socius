@@ -1,0 +1,27 @@
+---
+import { Mail, Phone } from "@lucide/astro";
+import { site } from "../data/site";
+
+interface Props {
+  text?: string;
+}
+const { text = "Kontaktieren Sie uns für eine unverbindliche und kostenlose Ersteinschätzung." } = Astro.props;
+---
+
+<section class="bg-brand-dark rounded-box px-8 py-10 text-white md:px-12 md:py-12">
+  <p class="max-w-xl text-xl leading-snug font-light md:text-2xl">{text}</p>
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a
+      href={site.phoneHref}
+      class="text-brand-dark hover:bg-brand-light inline-flex items-center gap-2 rounded-box bg-white px-6 py-3 font-medium transition-colors"
+    >
+      <Phone class="size-4" aria-hidden="true" /> Jetzt anrufen
+    </a>
+    <a
+      href={`mailto:${site.email}`}
+      class="inline-flex items-center gap-2 rounded-box border border-white/30 px-6 py-3 transition-colors hover:border-white hover:bg-white/10"
+    >
+      <Mail class="size-4" aria-hidden="true" /> E-Mail schreiben
+    </a>
+  </div>
+</section>

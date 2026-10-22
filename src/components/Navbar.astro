@@ -1,0 +1,76 @@
+---
+import { ChevronDown, Menu } from "@lucide/astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import logo from "../assets/logo.png";
+
+const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data.order - b.data.order);
+const path = Astro.url.pathname.replace(/\/$/, "");
+const isActive = (href: string) => path === href.replace(/\/$/, "");
+const inServices = services.some((s) => isActive(`/${s.id}`));
+---
+
+<header class="border-line/70 fixed top-0 z-50 w-full border-b bg-white/90 backdrop-blur">
+  <nav class="mx-auto flex h-20 max-w-6xl items-center justify-between px-6" aria-label="Hauptmenü">
+    <a href="/" class="shrink-0" aria-label="Socius Beistandschaften – Startseite">
+      <Image src={logo} alt="Socius Beistandschaften" loading="eager" width={360} class="h-8 w-auto sm:h-9" />
+    </a>
+
+    <!-- Desktop -->
+    <ul class="hidden items-center gap-8 text-[0.95rem] md:flex">
+      <li class="group relative">
+        <button class:list={["hover:text-brand flex items-center gap-1 py-6", inServices ? "text-brand" : "text-ink/80"]} aria-haspopup="true">
+          Dienstleistungen <ChevronDown class="size-4 transition-transform group-focus-within:rotate-180 group-hover:rotate-180" aria-hidden="true" />
+        </button>
+        <div class="invisible absolute top-full left-1/2 w-80 -translate-x-1/2 translate-y-1 opacity-0 transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+          <ul class="border-line rounded-box border bg-white p-2 shadow-xl shadow-black/5">
+            {services.map((s) => (
+              <li>
+                <a
+                  href={`/${s.id}/`}
+                  class:list={["hover:bg-paper block rounded-box px-4 py-3", isActive(`/${s.id}`) ? "text-brand font-medium" : "text-ink/85"]}
+                >
+                  {s.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
+      <li>
+        <a href="/ueber-uns/" class:list={["hover:text-brand", isActive("/ueber-uns") ? "text-brand" : "text-ink/80"]}>
+          Über uns
+        </a>
+      </li>
+      <li>
+        <a href="/kontakt/" class="bg-brand hover:bg-brand-dark rounded-box px-5 py-2.5 text-white transition-colors">
+          Kontakt
+        </a>
+      </li>
+    </ul>
+
+    <!-- Mobile Button -->
+    <button id="mobileMenuButton" class="text-ink -mr-2 p-2 md:hidden" aria-controls="mobileMenu" aria-expanded="false" aria-label="Menü öffnen">
+      <Menu class="size-6" aria-hidden="true" />
+    </button>
+  </nav>
+
+  <!-- Mobile -->
+  <div id="mobileMenu" class="border-line hidden max-h-[calc(100vh-5rem)] overflow-y-auto border-t bg-white md:hidden">
+    <div class="space-y-1 px-6 py-5">
+      <p class="text-muted px-3 pb-1 text-xs font-medium tracking-widest uppercase">Dienstleistungen</p>
+      {services.map((s) => (
+        <a href={`/${s.id}/`} class:list={["hover:bg-paper block rounded-box px-3 py-2", isActive(`/${s.id}`) && "text-brand"]}>
+          {s.data.title}
+        </a>
+      ))}
+      <div class="border-line my-3 border-t"></div>
+      <a href="/ueber-uns/" class="hover:bg-paper block rounded-box px-3 py-2">
+        Über uns
+      </a>
+      <a href="/kontakt/" class="bg-brand mt-3 block rounded-box px-5 py-3 text-center text-white">
+        Kontakt
+      </a>
+    </div>
+  </div>
+</header>

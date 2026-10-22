@@ -1,0 +1,42 @@
+---
+import { Mail, MapPin, Phone } from "@lucide/astro";
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+
+<Layout title="Kontakt" description="Kontakt zur Socius Beistandschaften GmbH, Bordeaux-Strasse 5, 4053 Basel.">
+  <PageHeader eyebrow="Kontakt" title="Wir sind telefonisch und per E-Mail für Sie erreichbar." />
+  <div class="mx-auto grid max-w-6xl gap-5 px-6 py-16 md:grid-cols-3 md:py-24">
+    <a href={site.phoneHref} class="group border-line hover:border-brand/40 rounded-box border p-7 transition hover:shadow-xl hover:shadow-black/5">
+      <Phone class="text-brand size-6" aria-hidden="true" />
+      <p class="text-muted mt-8 text-sm">Telefon</p>
+      <p class="group-hover:text-brand mt-1 text-lg">{site.phone}</p>
+    </a>
+    <a
+      href={`mailto:${site.email}`}
+      class="group border-line hover:border-brand/40 rounded-box border p-7 transition hover:shadow-xl hover:shadow-black/5"
+    >
+      <Mail class="text-brand size-6" aria-hidden="true" />
+      <p class="text-muted mt-8 text-sm">E-Mail</p>
+      <p class="group-hover:text-brand mt-1 text-lg break-all">{site.email}</p>
+    </a>
+    <a
+      href={site.mapUrl}
+      target="_blank"
+      rel="noopener"
+      class="group border-line hover:border-brand/40 rounded-box border p-7 transition hover:shadow-xl hover:shadow-black/5"
+    >
+      <MapPin class="text-brand size-6" aria-hidden="true" />
+      <p class="text-muted mt-8 text-sm">Büroräumlichkeiten</p>
+      <address class="mt-1 text-lg not-italic">
+        {site.name}
+        <br />
+        {site.street}
+        <br />
+        {site.city}
+      </address>
+      <p class="text-brand mt-3 text-sm underline-offset-4 group-hover:underline">auf der Karte anzeigen ↗</p>
+    </a>
+  </div>
+</Layout>

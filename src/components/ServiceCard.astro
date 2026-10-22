@@ -1,0 +1,26 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+
+interface Props {
+  href: string;
+  title: string;
+  teaser: string;
+  index: number;
+}
+const { href, title, teaser, index } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group border-line hover:border-brand/40 flex flex-col rounded-box border bg-white p-7 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/5"
+>
+  <div class="mb-10 flex items-start justify-between">
+    <span class="text-muted text-sm tabular-nums">{String(index).padStart(2, "0")}</span>
+    <ArrowUpRight
+      class="text-muted group-hover:text-brand size-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+      aria-hidden="true"
+    />
+  </div>
+  <h3 class="text-lg font-medium tracking-tight">{title}</h3>
+  <p class="text-muted mt-2 text-[0.95rem] leading-relaxed">{teaser}</p>
+</a>

@@ -1,0 +1,36 @@
+---
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+import { site } from "../data/site";
+---
+
+<Layout title="Impressum">
+  <PageHeader title="Impressum" />
+  <div class="mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <div class="prose-socius max-w-3xl">
+      <p>
+        <strong>Inhaltsverantwortlich:</strong>
+        <br />
+        {site.name}
+        <br />
+        {site.street}
+        <br />
+        {site.city}
+        <br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p>
+        <strong>Fotos:</strong>{" "}
+        <a href="https://verafrei.myportfolio.com" target="_blank" rel="noopener">
+          Vera Frei
+        </a>
+      </p>
+      <p>
+        <strong>Logo / Corporate Identity:</strong>{" "}
+        <a href="https://studiomoono.ch" target="_blank" rel="noopener">
+          Studio Moono
+        </a>
+      </p>
+    </div>
+  </div>
+</Layout>

@@ -1,43 +1,36 @@
-# Astro Starter Kit: Minimal
+# Socius Beistandschaften – Website
+
+Statische Website für [socius-beistandschaften.ch](https://socius-beistandschaften.ch), gebaut mit Astro + Tailwind CSS und über GitHub Pages ausgeliefert.
+
+## Entwicklung
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
+pnpm dev       # http://localhost:4321
+pnpm build     # Ausgabe in ./dist
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Inhalte pflegen
 
-## 🚀 Project Structure
+| Was | Wo |
+|---|---|
+| Texte der Dienstleistungen | `src/content/dienstleistungen/*.md` (Dateiname = URL) |
+| Team (Namen, Titel, Kontakt) | `src/data/team.ts` |
+| Adresse, Telefon, E-Mail, Zitat | `src/data/site.ts` |
+| Impressum / Datenschutz | `src/pages/impressum.astro`, `src/pages/datenschutz.astro` |
 
-Inside of your Astro project, you'll see the following folders and files:
+### Bilder ersetzen
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Portraits liegen in `src/assets/team/`, das Logo in `src/assets/logo.png`. Einfach durch die Originale in voller Auflösung ersetzen (gleicher Dateiname) – Astro erzeugt beim Build automatisch optimierte WebP-Versionen in passenden Grössen. Hat ein neues Bild eine andere Endung, den Import in `src/data/team.ts` anpassen.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Jeder Push auf `main` baut und veröffentlicht die Seite über `.github/workflows/astro.yml`.
 
-Any static assets, like images, can be placed in the `public/` directory.
+Einmalig auf GitHub: *Settings → Pages → Source: GitHub Actions*, Custom Domain `socius-beistandschaften.ch` eintragen, „Enforce HTTPS“ aktivieren.
 
-## 🧞 Commands
+DNS beim Domain-Provider (erst umstellen, wenn die Seite geprüft ist; MX-Einträge für E-Mail nicht ändern):
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `A` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- `AAAA` → `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153`, `2606:50c0:8003::153`
+- `www` `CNAME` → `<github-user>.github.io`
