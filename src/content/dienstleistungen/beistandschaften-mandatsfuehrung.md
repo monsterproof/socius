@@ -1,7 +1,7 @@
 ---
 title: Beistandschaften (Mandatsführung)
 teaser: Mandatsführung im Auftrag der KESB – auch bei komplexen Fragestellungen.
-order: 2
+order: 1
 ---
 
 ## Erwachsenenschutz

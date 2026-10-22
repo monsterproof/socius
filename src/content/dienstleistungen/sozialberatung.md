@@ -1,7 +1,7 @@
 ---
 title: Sozialberatung
 teaser: Unterstützung analog einer Beistandschaft – privatrechtlich und ohne Ernennung durch die KESB.
-order: 1
+order: 4
 ---
 
 ## Dienstleistungen analog einer Beistandschaft, jedoch ohne Ernennung durch die KESB

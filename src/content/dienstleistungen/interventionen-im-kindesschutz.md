@@ -1,7 +1,7 @@
 ---
 title: Interventionen im Kindesschutz
 teaser: Kindorientierte Elternberatung und Mediation bei Elternkonflikten.
-order: 4
+order: 3
 ---
 
 ## Ausgangslage und Zeitpunkt

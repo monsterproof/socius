@@ -1,7 +1,7 @@
 ---
 title: Abklärungen
 teaser: Fundierte Abklärungen im Erwachsenen- und Kindesschutz mit klarem Bericht an die Behörde.
-order: 3
+order: 2
 ---
 
 ## Erwachsenenschutz
