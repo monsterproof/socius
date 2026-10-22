@@ -13,6 +13,7 @@ const { text = "Kontaktieren Sie uns für eine unverbindliche und kostenlose Ers
   <div class="mt-8 flex flex-wrap gap-3">
     <a
       href={site.phoneHref}
+      data-call-button
       class="text-brand-dark hover:bg-brand-light inline-flex items-center gap-2 rounded-box bg-white px-6 py-3 font-medium transition-colors"
     >
       <Phone class="size-4" aria-hidden="true" /> Jetzt anrufen
@@ -25,3 +26,10 @@ const { text = "Kontaktieren Sie uns für eine unverbindliche und kostenlose Ers
     </a>
   </div>
 </section>
+
+<script>
+  // Anrufen klappt nur auf Geräten mit Telefon: auf Desktop (Maus) stattdessen zur Kontaktseite
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    document.querySelectorAll<HTMLAnchorElement>("[data-call-button]").forEach((a) => (a.href = "/kontakt/"));
+  }
+</script>

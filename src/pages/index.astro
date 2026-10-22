@@ -20,8 +20,8 @@ const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data
         <Image src={logo} alt="Socius Beistandschaften" loading="eager" width={900} class="w-full max-w-xs md:max-w-sm" />
       </h1>
       <figure class="md:border-line md:border-l md:pl-20">
-        <blockquote class="text-2xl leading-snug font-light tracking-tight text-balance md:leading-snug">«{quote.text}»</blockquote>
-        <figcaption class="text-muted mt-8 flex items-center gap-4 text-sm tracking-[0.2em] uppercase">
+        <blockquote class="text-md md:text-2xl leading-snug font-light tracking-tight text-balance md:leading-snug">«{quote.text}»</blockquote>
+        <figcaption class="text-muted mt-8 flex items-center gap-4 text-xs md:text-sm tracking-[0.2em] uppercase">
           <span class="bg-brand h-px w-10"></span>
           {quote.author}
         </figcaption>
