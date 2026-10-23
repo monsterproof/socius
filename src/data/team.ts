@@ -25,6 +25,7 @@ export const team: TeamMember[] = [
     name: "Laura Niklaus, BLaw",
     roles: ["BA / Ausbilderin mit eidg. Fachausweis"],
     email: "laura.niklaus@socius-beistandschaften.ch",
+    phone: "+41 (0)77 293 47 91",
     image: lauraNiklaus,
   },
   {
@@ -33,6 +34,12 @@ export const team: TeamMember[] = [
     email: "timon.sutter@socius-beistandschaften.ch",
     phone: "+41 (0)77 292 41 46",
     image: timonSutter,
+  },
+    {
+    name: "Jannik Beugger, MLaw",
+    roles: ["MSc Soziale Arbeit"],
+    email: "jannik.beugger@socius-beistandschaften.ch",
+    image: jannikBeugger,
   },
   {
     name: "Sascha Mangold",
