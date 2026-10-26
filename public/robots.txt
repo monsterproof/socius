@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://socius-beistandschaften.ch/sitemap-index.xml

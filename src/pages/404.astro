@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import ContactCta from "../components/ContactCta.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Layout from "../layouts/Layout.astro";
+
+const services = (await getCollection("dienstleistungen")).sort((a, b) => a.data.order - b.data.order);
+const pages = ["ueber-uns", "kontakt", "impressum", "datenschutz", ...services.map((s) => s.id)];
+---
+
+<Layout title="Seite nicht gefunden" noindex>
+  <PageHeader
+    eyebrow="Fehler 404"
+    title="Diese Seite gibt es nicht mehr"
+    lead="Unsere Website wurde neu gestaltet, deshalb haben sich einige Adressen geändert. Vielleicht finden Sie hier, was Sie suchen:"
+  />
+  <div class="mx-auto max-w-6xl px-6 py-16 md:py-24" data-pages={JSON.stringify(pages)} id="notFound">
+    <ul class="border-line max-w-3xl divide-y border-y">
+      <li><a href="/" class="hover:text-brand block py-3 transition-colors">Startseite</a></li>
+      {services.map((s) => (
+        <li>
+          <a href={`/${s.id}/`} class="hover:text-brand block py-3 transition-colors">
+            {s.data.title}
+          </a>
+        </li>
+      ))}
+      <li><a href="/ueber-uns/" class="hover:text-brand block py-3 transition-colors">Über uns</a></li>
+      <li><a href="/kontakt/" class="hover:text-brand block py-3 transition-colors">Kontakt</a></li>
+    </ul>
+    <div class="mt-20">
+      <ContactCta />
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Alte WordPress-Links abfangen, die sich nicht statisch weiterleiten lassen
+  const pages: string[] = JSON.parse(document.getElementById("notFound")?.dataset.pages ?? "[]");
+  const segments = location.pathname.toLowerCase().split("/").filter(Boolean);
+  const last = segments.at(-1);
+
+  if (last && pages.includes(last)) {
+    // z.B. /dienstleistungen/sozialberatung/ oder /Kontakt
+    location.replace(`/${last}/`);
+  } else if (
+    /[?&](p|page_id|cat|s)=/.test(location.search) ||
+    /^(category|tag|author|feed|wp-[^/]*|\d{4})$/.test(segments[0] ?? "")
+  ) {
+    // z.B. /?p=123, /category/…, /feed/, /wp-content/…, /2023/05/…
+    location.replace("/");
+  }
+</script>
